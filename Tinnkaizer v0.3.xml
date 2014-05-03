@@ -1,0 +1,121 @@
+<Profile>
+    <Name>Tinnkaizer v0.3</Name>
+    <KillMonsters>True</KillMonsters>
+    <PickupLoot>True</PickupLoot>
+    <GameParams quest="101758" step="1" act="A3" difficulty="Inferno" resumeFromSave="True" isPrivate="True" numGames="-1"  />
+    <Order>
+        <!-- Not at entrance to Azmodan, not in town -->
+        <If condition="(ZetaDia.CurrentWorldId != 119290) and (ZetaDia.CurrentWorldId != 172909)">
+            <!-- Make sure we're in Town -->
+            <LogMessage message="[Tinkaizer] :( " />
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+            <LeaveGame reason="Something went wrong, it could be that you died" />
+        </If>
+
+        <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="90" killRadius="60" />
+
+        <!-- At entrance to Azmodan -->
+        <If condition="ZetaDia.CurrentWorldId == 119290">
+            <LogMessage message="[Tinnkaizer] Starting in Core of Arreat from Azmodan's Door" />
+            <MoveTo questId="101758" stepId="1" x="1140.686" y="732.1945" z="0.1000002" pathPrecision="10" name="Core-01" />
+
+            <!-- WP to Tower of the Damned Level 1 -->
+            <While condition="ZetaDia.CurrentWorldId == 119290">
+                <UseWaypoint questId="101758" stepId="1" actorId="1854" waypointNumber="7" x="1161.597" y="686.7165" z="0.1" />
+            </While>
+        </If>
+
+        <!-- From Town -->
+        <If condition="Me.IsInTown">
+            <LogMessage message="[Tinnkaizer] In Town, taking WP to Core of Arreat" />
+            <While condition="Me.IsInTown">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="402.5403" y="414.342" z="1.5338" waypointNumber="10" />
+            </While>
+        </If>
+
+        <!-- Arreat Core from WP -->
+        <If condition="ZetaDia.CurrentWorldId == 119290">
+            <MoveTo questId="101758" stepId="1" x="183.6722" y="720.6746" z="-47.19459" name="Core-11" />
+
+            <!-- TP to Town -->
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+
+            <!-- WP to Tower of the Damned Level 1 -->
+            <While condition="Me.IsInTown">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="402.5403" y="414.342" z="1.5338" waypointNumber="7" />
+            </While>
+        </If>
+
+        <!-- Tower of the Damned Level 1 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 80791">
+            <LogMessage message="[Tinnkaizer] Circling Tower of the Damned Level 1" />
+            <MoveTo questId="101758" stepId="1" x="998.9504" y="956.0643" z="-9.899998" pathPrecision="10" name="TotD-01" />
+            <MoveTo questId="101758" stepId="1" x="1273.7" y="1047.833" z="-19.9" pathPrecision="10" name="TotD-02" />
+            <MoveTo questId="101758" stepId="1" x="992.953" y="1262.509" z="-29.68945" pathPrecision="10" name="TotD-03" />
+            <MoveTo questId="101758" stepId="1" x="1021.003" y="981.6401" z="-9.899996" pathPrecision="10" name="TotD-04" />
+
+            <!-- WP to Keep Depths Level 1 -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 80791">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="1041.245" y="990.0298" z="-9.500061" waypointNumber="2" />
+            </While>
+
+            <!-- Door to Keep Depths Level 2 -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 75436">
+                <UseObject questId="101758" stepId="1" actorId="175482" isPortal="True" destinationWorldId="75434" />
+            </While>
+        </If>
+
+        <!-- Keep Depths Level 2 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 93103">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="30" killRadius="20" />
+            <LogMessage message="[Tinnkaizer] Clearing Keep Depths Level 2 from Entrance to Exit" />
+            <While condition="ZetaDia.CurrentLevelAreaId != 218511">
+                <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="20" boxTolerance="0.30" until="ExitFound" exitNameHash="-1699330854" statusText="Clearing Keep Depths Level 2 from Entrance to Exit" />
+            </While>
+
+            <!-- Door to Keep Depths Level 3 -->
+            <While condition="(ZetaDia.CurrentLevelAreaId == 218511) or (ZetaDia.CurrentLevelAreaId == 93103)">
+                <MoveTo questId="101758" stepId="1" actorId="176001" pathPrecision="15" name="Door to Keep Depths Level 3" />
+                <UseObject questId="101758" stepId="1" actorId="176001" isPortal="True" destinationWorldId="136415" />
+            </While>
+        </If>
+
+        <!-- Keep Depths Level 3 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 136448">
+            <LogMessage message="[Tinnkaizer] Clearing Keep Depths Level 3 from Entrance to WP" />
+            <While condition="not ActorExistsAt(6442, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 90)">
+                <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="20" boxTolerance="0.30" until="ObjectFound" actorId="6442" statusText="Clearing Keep Depths Level 3 from Entrance to WP" />
+            </While>
+
+            <!-- WP to Arreat Crater Level 2 -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 136448">
+                <MoveTo questId="101758" stepId="1" actorId="6442" pathPrecision="5" name="Keep Depths Level 3 WP" />
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" waypointNumber="8" />
+            </While>
+        </If>
+
+        <!-- Arreat Crater Level 2 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 119305">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="60" killRadius="40" />
+            <LogMessage message="[Tinnkaizer] Clearing Arreat Crater Level 2 from WP to Exit" />
+            <While condition="not ActorExistsAt(176001, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 90)">
+                <ExploreArea  questId="101758" stepId="1" ignoreGridReset="True" boxSize="20" boxTolerance="0.50" until="ObjectFound" actorId="176001" statusText="Clearing Arreat Crater Level 2 from WP to Exit" />
+            </While>
+
+            <!-- Move to Exit for TP -->
+            <MoveTo questId="101758" stepId="1" actorId="176001" pathPrecision="15" name="Arreat Crater Level 2 Exit" />
+
+            <!-- TP to Town for LeaveGame -->
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+            <LeaveGame reason="Something something darkside, something something complete" />
+        </If>
+
+        <LeaveGame reason="I don't like what's going on, I'm out of here" />
+    </Order>
+</Profile>

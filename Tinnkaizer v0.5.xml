@@ -1,0 +1,212 @@
+<Profile>
+    <Name>Tinnkaizer v0.5</Name>
+    <KillMonsters>True</KillMonsters>
+    <PickupLoot>True</PickupLoot>
+    <GameParams quest="101758" step="1" act="A3" difficulty="Inferno" resumeFromSave="True" isPrivate="True" numGames="-1"  />
+    <Order>
+        <!-- Not at entrance to Azmodan, not in town, not anywhere we know -->
+        <If condition="(CurrentWorldId != 172909) and (CurrentWorldId != 119290) and (CurrentLevelAreaId != 80791) and (CurrentLevelAreaId != 75436) and (CurrentLevelAreaId != 93103) and (CurrentLevelAreaId != 136448) and (CurrentLevelAreaId != 119305) and (CurrentLevelAreaId != 69504) and (CurrentLevelAreaId != 112565) and (CurrentLevelAreaId != 155048)">
+            <!-- Make sure we're in Town -->
+            <LogMessage message="[Tinnkaizer] Frowny face" />
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+            <LeaveGame reason="I don't like what I'm seeing, I'm out of here" />
+        </If>
+
+        <!-- At entrance to Azmodan -->
+        <If condition="ZetaDia.CurrentWorldId == 119290">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="90" killRadius="60" />
+            <LogMessage message="[Tinnkaizer] Starting in Core of Arreat from Azmodan's Door" />
+            <MoveTo questId="101758" stepId="1" x="183.6722" y="720.6746" z="-47.19459" name="Arreat Core-11" />
+            <MoveTo questId="101758" stepId="1" x="336.1475" y="724.474" z="0.1" pathPrecision="10" name="Arreat Core-10" />
+            <MoveTo questId="101758" stepId="1" x="544.4486" y="707.1024" z="0.529933" pathPrecision="10" name="Arreat Core-09" />
+            <MoveTo questId="101758" stepId="1" x="548.8901" y="651.1499" z="0.1000153" pathPrecision="10" name="Arreat Core-08" />
+            <MoveTo questId="101758" stepId="1" x="591.9153" y="550.4387" z="0.1000032" pathPrecision="10" name="Arreat Core-07" />
+            <MoveTo questId="101758" stepId="1" x="737.8298" y="549.946" z="0.1000217" pathPrecision="10" name="Arreat Core-06" />
+            <MoveTo questId="101758" stepId="1" x="775.1333" y="627.4221" z="0.1000157" pathPrecision="10" name="Arreat Core-05" />
+            <MoveTo questId="101758" stepId="1" x="885.3837" y="717.8165" z="0.1000153" pathPrecision="10" name="Arreat Core-04" />
+            <MoveTo questId="101758" stepId="1" x="991.7961" y="728.0093" z="0.1000001" pathPrecision="10" name="Arreat Core-03" />
+            <MoveTo questId="101758" stepId="1" x="1081.564" y="715.2292" z="0.09999999" pathPrecision="10" name="Arreat Core-02" />
+            <MoveTo questId="101758" stepId="1" x="1140.686" y="732.1945" z="0.1000002" pathPrecision="10" name="Arreat Core-01" />
+
+            <!-- WP to Arreat Crater Level 1 -->
+            <While condition="ZetaDia.CurrentWorldId == 119290">
+                <UseWaypoint questId="101758" stepId="1" actorId="1854" x="1161.597" y="686.7165" z="0.1" waypointNumber="6" />
+            </While>
+        </If>
+
+        <!-- From Town -->
+        <If condition="Me.IsInTown">
+            <LogMessage message="[Tinnkaizer] In Town, taking WP to Core of Arreat" />
+            <While condition="Me.IsInTown">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="402.5403" y="414.342" z="1.5338" waypointNumber="10" />
+            </While>
+        </If>
+
+        <!-- Arreat Core from WP -->
+        <If condition="ZetaDia.CurrentWorldId == 119290">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="90" killRadius="60" />
+            <MoveTo questId="101758" stepId="1" x="1140.686" y="732.1945" z="0.1000002" pathPrecision="10" name="Arreat Core-01" />
+            <MoveTo questId="101758" stepId="1" x="1081.564" y="715.2292" z="0.09999999" pathPrecision="10" name="Arreat Core-02" />
+            <MoveTo questId="101758" stepId="1" x="991.7961" y="728.0093" z="0.1000001" pathPrecision="10" name="Arreat Core-03" />
+            <MoveTo questId="101758" stepId="1" x="885.3837" y="717.8165" z="0.1000153" pathPrecision="10" name="Arreat Core-04" />
+            <MoveTo questId="101758" stepId="1" x="775.1333" y="627.4221" z="0.1000157" pathPrecision="10" name="Arreat Core-05" />
+            <MoveTo questId="101758" stepId="1" x="737.8298" y="549.946" z="0.1000217" pathPrecision="10" name="Arreat Core-06" />
+            <MoveTo questId="101758" stepId="1" x="591.9153" y="550.4387" z="0.1000032" pathPrecision="10" name="Arreat Core-07" />
+            <MoveTo questId="101758" stepId="1" x="548.8901" y="651.1499" z="0.1000153" pathPrecision="10" name="Arreat Core-08" />
+            <MoveTo questId="101758" stepId="1" x="544.4486" y="707.1024" z="0.529933" pathPrecision="10" name="Arreat Core-09" />
+            <MoveTo questId="101758" stepId="1" x="336.1475" y="724.474" z="0.1" pathPrecision="10" name="Arreat Core-10" />
+            <MoveTo questId="101758" stepId="1" x="183.6722" y="720.6746" z="-47.19459" name="Arreat Core-11" />
+
+            <!-- TP to Town -->
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+
+            <!-- WP to Arreat Crater Level 1 -->
+            <While condition="Me.IsInTown">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="402.5403" y="414.342" z="1.5338" waypointNumber="6" />
+            </While>
+        </If>
+
+        <!-- Arreat Crater Level 1 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 86080">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="60" killRadius="40" />
+            <LogMessage message="[Tinnkaizer] Clearing Arreat Crater Level 1 from WP to Exit" />
+            <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="25" boxTolerance="0.15" until="ExitFound" exitNameHash="2083727832" statusText="Clearing Arreat Crater Level 1 from WP to Exit" />
+
+            <!-- Door to Tower of the Damned Level 1 -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 86080">
+                <MoveTo questId="101758" stepId="1" actorId="176001" pathPrecision="15" name="Arreat Crater Level 1 Exit" />
+                <UseObject questId="101758" stepId="1" actorId="176001" isPortal="True" destinationWorldId="79401" />
+            </While>
+        </If>
+
+        <!-- Tower of the Damned Level 1 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 80791">
+            <LogMessage message="[Tinnkaizer] Circling Tower of the Damned Level 1" />
+            <MoveTo questId="101758" stepId="1" x="1079.316" y="948.1113" z="-9.899999" pathPrecision="10" name="TotD-00" />
+            <MoveTo questId="101758" stepId="1" x="968.3978" y="914.7258" z="-9.899996" pathPrecision="10" name="TotD-01" />
+            <MoveTo questId="101758" stepId="1" x="881.8578" y="1091.224" z="-29.9" pathPrecision="10" name="TotD-02" />
+            <MoveTo questId="101758" stepId="1" x="996.6141" y="1259.674" z="-29.68945" pathPrecision="10" name="TotD-03" />
+            <MoveTo questId="101758" stepId="1" x="1196.401" y="1151.374" z="-29.9" pathPrecision="10" name="TotD-04" />
+            <MoveTo questId="101758" stepId="1" x="1252.778" y="1059.081" z="-19.9" pathPrecision="10" name="TotD-05" />
+            <MoveTo questId="101758" stepId="1" x="1216.89" y="941.3522" z="-9.899997" pathPrecision="10" name="TotD-06" />
+            <MoveTo questId="101758" stepId="1" x="1079.316" y="948.1113" z="-9.899999" pathPrecision="10" name="TotD-07" />
+
+            <!-- WP to Keep Depths Level 1 -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 80791">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="1041.245" y="990.0298" z="-9.500061" waypointNumber="2" />
+            </While>
+        </If>
+
+        <!-- Door to Keep Depths Level 2 -->
+        <While condition="ZetaDia.CurrentLevelAreaId == 75436">
+            <UseObject questId="101758" stepId="1" actorId="175482" isPortal="True" destinationWorldId="75434" />
+        </While>
+
+        <!-- Keep Depths Level 2 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 93103">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="30" killRadius="20" />
+            <LogMessage message="[Tinnkaizer] Clearing Keep Depths Level 2 from Entrance to Exit" />
+            <While condition="ZetaDia.CurrentLevelAreaId != 218511">
+                <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="10" boxTolerance="0.70" until="ExitFound" exitNameHash="-1699330854" statusText="Clearing Keep Depths Level 2 from Entrance to Exit" />
+            </While>
+
+            <!-- Door to Keep Depths Level 3 -->
+            <While condition="(ZetaDia.CurrentLevelAreaId == 218511) or (ZetaDia.CurrentLevelAreaId == 93103)">
+                <MoveTo questId="101758" stepId="1" actorId="176001" pathPrecision="15" name="Door to Keep Depths Level 3" />
+                <UseObject questId="101758" stepId="1" actorId="176001" isPortal="True" destinationWorldId="136415" />
+            </While>
+        </If>
+
+        <!-- Keep Depths Level 3 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 136448">
+            <LogMessage message="[Tinnkaizer] Clearing Keep Depths Level 3 from Entrance to WP" />
+            <While condition="not ActorExistsAt(161277, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 150)">
+                <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="10" boxTolerance="0.70" until="ObjectFound" actorId="6442" statusText="Clearing Keep Depths Level 3 from Entrance to WP" />
+            </While>
+
+            <!-- WP to Rakkis Crossing -->
+            <While condition="ZetaDia.CurrentLevelAreaId == 136448">
+                <MoveTo questId="101758" stepId="1" actorId="6442" pathPrecision="5" name="Keep Depths Level 3 WP" />
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" waypointNumber="5" />
+            </While>
+        </If>
+
+        <!-- Rakkis Crossing -->
+        <If condition="CurrentLevelAreaId == 69504">
+            <LogMessage message="[Tinnkaizer] Clearing Rakkis Crossing WP to Bridge of Korsikk WP" />
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="90" killRadius="60" />
+            <MoveTo questId="101758" stepId="1" x="960.5301" y="605.5908" z="0.3429862" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="990.6523" y="558.1758" z="0.2366275" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1048.34" y="561.7313" z="-24.29793" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1152.157" y="621.6891" z="-24.08417" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1373.506" y="602.1225" z="-24.50243" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1389.524" y="607.9295" z="-24.9" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1549.671" y="576.3071" z="-24.9" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1550.458" y="521.7718" z="-12.4" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1584.66" y="524.6298" z="0.1000001" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1617.303" y="553.5931" z="0.1000001" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1679.408" y="637.8325" z="0.1049394" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1820.212" y="622.1033" z="0.2087875" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1938.687" y="599.6624" z="0.4225061" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="1957.272" y="604.8751" z="0.2604791" pathPrecision="40" />
+            <MoveTo questId="101758" stepId="1" x="2030.498" y="582.8068" z="0.1000002" pathPrecision="30" />
+            <MoveTo questId="101758" stepId="1" x="2181.229" y="605.5661" z="0.3754861" pathPrecision="30" />
+            <MoveTo questId="101758" stepId="1" x="2438.797" y="621.7103" z="0.2640174" pathPrecision="30" />
+            <MoveTo questId="101758" stepId="1" x="2543.366" y="628.7155" z="0.1000076" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="2678.981" y="614.9139" z="0.2604786" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="2738.913" y="612.7281" z="0.2604788" pathPrecision="10" />
+            <MoveTo questId="101758" stepId="1" x="2861.062" y="614.1963" z="0.2909566" pathPrecision="10" />
+        </If>
+        
+        <!-- Fields of Slaughter -->
+        <If condition="CurrentLevelAreaId == 112565">
+            <MoveTo questId="101758" stepId="1" x="2852.093" y="462.3787" z="0.09707406" pathPrecision="10" name="FoS-1" /> 
+            <MoveTo questId="101758" stepId="1" x="3009.542" y="413.0412" z="0.2" pathPrecision="40" name="FoS-2"  />
+            <MoveTo questId="101758" stepId="1" x="3085.076" y="529.1082" z="0.09999932" pathPrecision="10" name="FoS-3" /> 
+            <MoveTo questId="101758" stepId="1" x="3118.88" y="615.2427" z="0.1" pathPrecision="10" name="FoS-4" /> 
+            <MoveTo questId="101758" stepId="1" x="3119.309" y="699.4977" z="0.1" pathPrecision="10" name="FoS-5" /> 
+            <MoveTo questId="101758" stepId="1" x="2897.613" y="681.7181" z="0.09999809" pathPrecision="10" name="FoS-6" /> 
+            <MoveTo questId="101758" stepId="1" x="2859.381" y="741.6899" z="0.1000014" pathPrecision="10" name="FoS-7" /> 
+            <MoveTo questId="101758" stepId="1" x="2993.095" y="838.23" z="0.2000003" pathPrecision="20" name="FoS-8" /> 
+            <MoveTo questId="101758" stepId="1" x="3119.127" y="775.5295" z="0.1" pathPrecision="10" name="FoS-9" /> 
+            <MoveTo questId="101758" stepId="1" x="3269.328" y="851.5408" z="0.09999999" pathPrecision="20" name="FoS-10" /> 
+            <MoveTo questId="101758" stepId="1" x="3392.07" y="751.5333" z="0.1000008" pathPrecision="10" name="FoS-11" /> 
+            <MoveTo questId="101758" stepId="1" x="3366.825" y="587.3737" z="0.1000206" pathPrecision="10" name="FoS-12" /> 
+            <MoveTo questId="101758" stepId="1" x="3252.347" y="593.5366" z="0.2" pathPrecision="10" name="FoS-13" /> 
+            <MoveTo questId="101758" stepId="1" x="3309.373" y="425.1253" z="0.1" pathPrecision="25" name="FoS-14" /> 
+            <MoveTo questId="101758" stepId="1" x="3341.424" y="220.337" z="0.0921203" pathPrecision="10" name="FoS-15" /> 
+            <MoveTo questId="101758" stepId="1" x="3406.512" y="235.2303" z="0.1" pathPrecision="10" name="FoS-16" /> 
+            <MoveTo questId="101758" stepId="1" x="3487.65" y="328.1584" z="0.1470053" pathPrecision="10" name="FoS-17" /> 
+            <MoveTo questId="101758" stepId="1" x="3398.544" y="413.2033" z="0.2" pathPrecision="10" name="FoS-18" /> 
+            <MoveTo questId="101758" stepId="1" x="3361.67" y="537.3792" z="0.1000006" pathPrecision="10" name="FoS-19" /> 
+            <MoveTo questId="101758" stepId="1" x="3435.524" y="598.026" z="0.7669733" pathPrecision="10" name="FoS-20" /> 
+            
+            <!-- WP to Arreat Creater Level 2 -->
+            <While condition="CurrentLevelAreaId == 155048">
+                <UseWaypoint questId="101758" stepId="1" actorId="6442" x="3453.901" y="609.0917" z="0.3065131" waypointNumber="8" />
+            </While>
+        </If>
+
+        <!-- Arreat Crater Level 2 -->
+        <If condition="ZetaDia.CurrentLevelAreaId == 119305">
+            <ToggleTargeting questId="101758" stepId="1" combat="True" looting="True" lootRadius="60" killRadius="40" />
+            <LogMessage message="[Tinnkaizer] Clearing Arreat Crater Level 2 from WP to Exit" />
+            <ExploreArea questId="101758" stepId="1" ignoreGridReset="True" boxSize="25" boxTolerance="0.15" until="ExitFound" exitNameHash="43541786" statusText="Clearing Arreat Crater Level 2 from WP to Exit" />
+
+            <!-- Move to Exit for TP -->
+            <MoveTo questId="101758" stepId="1" actorId="176001" pathPrecision="15" name="Arreat Crater Level 2 Exit" />
+
+            <!-- TP to Town for LeaveGame -->
+            <While condition="not Me.IsInTown">
+                <UseTownPortal questId="101758" stepId="1" />
+            </While>
+            <LeaveGame reason="Something something complete" />
+        </If>
+
+        <LeaveGame reason="Something went very, very wrong" />
+    </Order>
+</Profile>
